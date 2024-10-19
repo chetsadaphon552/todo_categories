@@ -1,0 +1,19 @@
+<% if @category %>
+  <h1>งานในหมวดหมู่: <%= @category.name %></h1>
+
+  <% if @tasks.any? %>
+    <ul>
+      <% @tasks.each do |task| %>
+        <li>
+          <%= task.name %>
+          <%= link_to 'ลบ', category_task_path(@category, task), method: :delete, data: { confirm: "คุณแน่ใจว่าต้องการลบงานนี้?" } %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>ไม่มีงานในหมวดหมู่นี้</p>
+  <% end %>
+<% else %>
+  <h1>ไม่พบหมวดหมู่ที่คุณต้องการลบ</h1>
+  <%= link_to 'กลับไปยังรายการหมวดหมู่', categories_path %>
+<% end %>

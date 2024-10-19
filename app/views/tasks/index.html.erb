@@ -1,0 +1,40 @@
+<h1>รายการงาน</h1>
+
+<% if @task.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@task.errors.count, "error") %> prevented this task from being saved:</h2>
+    <ul>
+      <% @task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: @task, local: true) do |form| %>
+  <div>
+    <%= form.label :name, "ชื่องาน" %>
+    <%= form.text_field :name, required: true %>
+  </div>
+  
+  <div>
+    <%= form.label :category_id, "หมวดหมู่" %>
+    <%= form.collection_select :category_id, @categories, :id, :name, prompt: "เลือกหมวดหมู่", required: true %>
+  </div>
+  
+  <div>
+    <%= form.submit "สร้างงาน" %>
+  </div>
+<% end %>
+
+<h2>งานที่ยังไม่เสร็จ</h2>
+<ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <%= task.name %> - <%= task.category.name if task.category %>
+      <%= link_to 'ทำเครื่องหมายว่าเสร็จ', complete_task_path(task), method: :get %>
+      <%= link_to 'แก้ไข', edit_task_path(task) %>
+      <%= link_to 'รายละเอียด', task_path(task), method: :delete, data: { confirm: "คุณแน่ใจว่าต้องการลบงานนี้?" } %>
+    </li>
+  <% end %>
+</ul>

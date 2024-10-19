@@ -1,0 +1,9 @@
+<h1>แก้ไขหมวดหมู่</h1>
+
+<%= form_with(model: @category, local: true) do |form| %>
+  <%= form.label :name, "ชื่อหมวดหมู่" %>
+  <%= form.text_field :name %>
+  <%= form.submit "บันทึก" %>
+<% end %>
+
+<%= link_to 'กลับไปยังรายการหมวดหมู่', categories_path %>

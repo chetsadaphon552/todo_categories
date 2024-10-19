@@ -1,0 +1,13 @@
+<h1>แก้ไขงาน</h1>
+
+<%= form_with(model: @task, local: true) do |form| %>
+  <%= form.label :name, "ชื่องาน" %>
+  <%= form.text_field :name %>
+  
+  <%= form.label :category_id, "หมวดหมู่" %>
+  <%= form.collection_select :category_id, @categories, :id, :name, selected: @task.category_id %>
+
+  <%= form.submit "บันทึก" %>
+<% end %>
+
+<%= link_to 'กลับไปยังรายการงาน', tasks_path %>
